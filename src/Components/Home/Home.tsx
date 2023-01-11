@@ -22,8 +22,7 @@ export const Home = () => {
 	const [page, setpage] = useState(1)
 	const navigate = useNavigate()
 	const posterImageBaseUrl = "https://image.tmdb.org/t/p/w1280";
-	const  {data, isError,isLoading}  = useQuery<MoviesApiResponse, Error>({ queryKey: ['trendingMoviesList',page], queryFn:()=> getAllTrendingMovies(page) }
-	);
+	const  {data, isError,isLoading}  = useQuery<MoviesApiResponse, Error>({ queryKey: ['trendingMoviesList',page], queryFn:()=> getAllTrendingMovies(page) });
 	console.log("data",data);
 
   return (
@@ -39,7 +38,7 @@ export const Home = () => {
 
 data?.results.map((item:MovieItem)=>(
 
-<div style={{width:'220px', height:'265px',opacity:'.9', cursor:'pointer'}} key={item.id} className="hoverMovieCard w-full m-2 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700" onClick={()=>navigate('movies/'+ item?.id)}>
+<div style={{width:'220px', height:'265px',opacity:'.9', cursor:'pointer'}} key={item.id} className="hoverMovieCard w-full m-2 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700" onClick={()=>navigate('/movies/'+ item?.id)}>
 	
       <div style={{display:"flex",justifyContent:"center"}} >
 

@@ -7,6 +7,8 @@ import { Home } from './Components/Home/Home';
 import { QueryClient,QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from "react-query/devtools";
 import MovieDetails from './Components/MovieDetails/MovieDetails';
+import {TVSeries} from './Components/TvSeries/TvSeries';
+import TvSeriesDetails from './Components/TvSeriesDetails/TvSeriesDetails';
 const queryClient = new QueryClient(
 	// {  defaultOptions: {
 	//     queries: {
@@ -27,9 +29,12 @@ function App() {
 	<QueryClientProvider client={queryClient}>
 		<NavbarComponent/>
 	<Routes>
+	
 	<Route path="/" element={<Home/>}/>
 	  <Route path="/movies/:movieId" element={<MovieDetails/>}/>
 	  <Route path="/movies" element={<Home/>}/>
+	  <Route path="/tvseries/:tvSeriesId" element={<TvSeriesDetails/>}/>
+	  <Route path="/tvseries" element={<TVSeries/>}/>
 		{/* <Route index element={<Home />} /> */}
 		{/* <Route path="blogs" element={<Blogs />} />
 		<Route path="contact" element={<Contact />} />
