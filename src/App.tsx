@@ -9,16 +9,17 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import MovieDetails from './Components/MovieDetails/MovieDetails';
 import {TVSeries} from './Components/TvSeries/TvSeries';
 import TvSeriesDetails from './Components/TvSeriesDetails/TvSeriesDetails';
+import YTVideosList from './Components/Youtube-Videos/YTVideosList';
 const queryClient = new QueryClient(
-	// {  defaultOptions: {
-	//     queries: {
-	//       refetchOnWindowFocus: false,
-	//     //   refetchOnmount: false,
-	//       refetchOnReconnect: false,
-	//       retry: 1,
-	//       staleTime: 5 * 1000,
-	//     }
-	//   }}
+	{  defaultOptions: {
+	    queries: {
+	      refetchOnWindowFocus: false,
+	    //   refetchOnmount: false,
+	    //   refetchOnReconnect: false,
+	    //   retry: 1,
+	    //   staleTime: 5 * 1000,
+	    }
+	  }}
 	  )
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
 	  <Route path="/movies" element={<Home/>}/>
 	  <Route path="/tvseries/:tvSeriesId" element={<TvSeriesDetails/>}/>
 	  <Route path="/tvseries" element={<TVSeries/>}/>
+	  <Route path='/youtube' element={<YTVideosList/>}/>
 		{/* <Route index element={<Home />} /> */}
 		{/* <Route path="blogs" element={<Blogs />} />
 		<Route path="contact" element={<Contact />} />

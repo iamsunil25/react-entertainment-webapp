@@ -6,6 +6,7 @@ import { getMovieDetailsById, getTvSeriesDetailsById } from '../../ApiIntegratio
 import  {MoviesApiResponse}  from '../../utility/ApiResponseInterface';
 import NoDataFoundImg from '../../images/noDataFound.png'
 import { secondsToHms } from '../../utility/RunTimeToMinutes';
+import Loader from '../../utility/Loader';
 
 type MovieItem ={
 	id:number,
@@ -18,7 +19,8 @@ type MovieItem ={
 	revenue:string
 	budget:string
 	tagline:string
-	runtime:string
+	number_of_seasons:number
+	number_of_episodes:number
 	adult:boolean
 	original_language:string
 	genres:[]
@@ -35,7 +37,11 @@ const TvSeriesDetails = () => {
 	  
 		console.log("data details",data);
 		if(isLoading){
-			return <h1 className='text-center'>...loading</h1>
+			return (
+				<div style={{display:"flex",justifyContent:"center",flexWrap:'wrap'}} >
+	 <Loader/>
+	</div>
+			)
 		}
 		if(data?.success===false){
 	return (
@@ -53,7 +59,7 @@ const TvSeriesDetails = () => {
 		}
 		
 		return (
-		<div>
+			<div>
 			<div className="grid  grid-flow-col gap-4">
 	  <div className="row-span-6">
 	
@@ -62,27 +68,57 @@ const TvSeriesDetails = () => {
 	
 	  </div>
 	  <div className="row-span-6 m-1">
-	<span>Title : {data?.original_title || data?.title || data?.name || data?.original_name  || "-"}</span><br/>
-	<span>Tagline : {data?.tagline  || "-"} </span> <br/>
-	<span>Run time : {secondsToHms(data?.runtime)|| "-"}</span><br/>
-	<span>Adult : {data?.adult ? 'Yes':'No'} </span> <br/>
-	<span>Original Language : {data?.original_language?.toUpperCase()  || "-"} </span> <br/>
-	<span>Release Date : {moment(data?.release_date).format('DD-MM-YYYY')  || "-"} </span> <br/>
-	<span>Genres :	{data?.genres.map((item:any,index:number)=><span key={item?.id}>{item?.name}{index!==data.genres.length-1 ? ", ":null}</span>)}
+	<span className='text-teal-600 font-bold'>Title :<span className='font-semibold text-gray-900'> {data?.original_title || data?.title || data?.name || data?.original_name  || "-"}</span></span><br/>
+	<span className='text-teal-600 font-bold'>Tagline : <span className='font-semibold text-gray-900'>{data?.tagline  || "-"}</span> </span> <br/>
+	<span className='text-teal-600 font-bold'>Total Seasons : <span className='font-semibold text-gray-900'>{data?.number_of_seasons|| "-"}</span></span><br/>
+	<span className='text-teal-600 font-bold'>Total Episoded : <span className='font-semibold text-gray-900'>{data?.number_of_episodes|| "-"}</span></span><br/>
+	<span className='text-teal-600 font-bold'>Adult : <span className='font-semibold text-gray-900'>{data?.adult ? 'Yes':'No'} </span></span> <br/>
+	<span className='text-teal-600 font-bold'>Original Language : <span className='font-semibold text-gray-900'>{data?.original_language?.toUpperCase()  || "-"}</span> </span> <br/>
+	<span className='text-teal-600 font-bold'>Release Date : <span className='font-semibold text-gray-900'>{moment(data?.release_date).format('DD-MM-YYYY')  || "-"}</span> </span> <br/>
+	<span className='text-teal-600 font-bold'>Genres : <span className='font-semibold text-gray-900'>	{data?.genres.map((item:any,index:number)=><span key={item?.id}>{item?.name}{index!==data.genres.length-1 ? ", ":null}</span>)}</span>
 	 </span> <br/>
-	 <span>Movie budget : {data?.budget  || "-"} </span> <br/>
+	 <span className='text-teal-600 font-bold'>Movie budget : <span className='font-semibold text-gray-900'> {data?.budget  || "-"}</span> </span> <br/>
 	 {data?.homepage && 
 	 <>
-	 <span>Home Page : <a href={data?.homepage } target="_blank">{data?.original_title || data?.title || data?.name || data?.original_name}</a> </span> <br/>
+	 <span className='text-teal-600 font-bold'>Home Page :<span className='font-semibold text-gray-900'> <a href={data?.homepage } target="_blank">{data?.original_title || data?.title || data?.name || data?.original_name}</a></span> </span> <br/>
 	 </>}
-	 <span>Overview : {data?.overview  || "-"} </span> <br/>
-	 <span>Production Country : {data?.production_countries[0]?.name  || "-"} </span> <br/>
-	 <span>Revenue : {data?.revenue  || "-"} </span> <br/>
+	 <span className='text-teal-600 font-bold'>Overview : <span className='font-semibold text-gray-900'>{data?.overview  || "-"}</span> </span> <br/>
+	 <span className='text-teal-600 font-bold'>Production Country : <span className='font-semibold text-gray-900'> {data?.production_countries[0]?.name  || "-"} </span></span> <br/>
+	 {/* <span className='text-teal-600 font-bold'>Revenue : <span className='font-semibold text-gray-900'> {data?.revenue  || "-"} </span></span> <br/> */}
 	  </div>
 	</div>
+	</div>
+
+	// 	<div>
+	// 		<div className="grid  grid-flow-col gap-4">
+	//   <div className="row-span-6">
+	
+	// <img src={posterImageBaseUrl + data?.poster_path}  alt="movie" style={{aspectRatio:'6/5'}} />
 	
 	
-		</div>
+	//   </div>
+	//   <div className="row-span-6 m-1">
+	// <span>Title : {data?.original_title || data?.title || data?.name || data?.original_name  || "-"}</span><br/>
+	// <span>Tagline : {data?.tagline  || "-"} </span> <br/>
+	// <span>Run time : {secondsToHms(data?.runtime)|| "-"}</span><br/>
+	// <span>Adult : {data?.adult ? 'Yes':'No'} </span> <br/>
+	// <span>Original Language : {data?.original_language?.toUpperCase()  || "-"} </span> <br/>
+	// <span>Release Date : {moment(data?.release_date).format('DD-MM-YYYY')  || "-"} </span> <br/>
+	// <span>Genres :	{data?.genres.map((item:any,index:number)=><span key={item?.id}>{item?.name}{index!==data.genres.length-1 ? ", ":null}</span>)}
+	//  </span> <br/>
+	//  <span>Movie budget : {data?.budget  || "-"} </span> <br/>
+	//  {data?.homepage && 
+	//  <>
+	//  <span>Home Page : <a href={data?.homepage } target="_blank">{data?.original_title || data?.title || data?.name || data?.original_name}</a> </span> <br/>
+	//  </>}
+	//  <span>Overview : {data?.overview  || "-"} </span> <br/>
+	//  <span>Production Country : {data?.production_countries[0]?.name  || "-"} </span> <br/>
+	//  <span>Revenue : {data?.revenue  || "-"} </span> <br/>
+	//   </div>
+	// </div>
+	
+	
+	// 	</div>
 	  )
 	}
 

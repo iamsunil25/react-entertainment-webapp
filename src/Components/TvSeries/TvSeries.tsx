@@ -5,6 +5,7 @@ import { getAlltvSeries } from '../../ApiIntegration/TheMoviesDbAPi';
 import { MoviesApiResponse } from '../../utility/ApiResponseInterface';
 import moment from 'moment';
 import Paginate from '../../utility/Paginate';
+import Loader from '../../utility/Loader';
 type TvSeriesItem = {
 	id:number
 	first_air_date:string
@@ -27,9 +28,9 @@ export const TVSeries = () => {
 
 <div style={{display:"flex",justifyContent:"center",flexWrap:'wrap'}} >
 {
- isLoading ? <div style={{display:"flex",justifyContent:"center"}}>
- ...loading
-</div>:
+ isLoading ? 
+ <Loader/>
+ :
 
 data?.results.map((item:TvSeriesItem)=>(
 

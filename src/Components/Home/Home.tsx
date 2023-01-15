@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { MoviesApiResponse } from '../../utility/ApiResponseInterface';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import Loader from '../../utility/Loader';
    type MovieItem ={
 	id:number,
 	release_date:string,
@@ -32,9 +33,9 @@ export const Home = () => {
 
 <div style={{display:"flex",justifyContent:"center",flexWrap:'wrap'}} >
 {
- isLoading ? <div style={{display:"flex",justifyContent:"center"}}>
- ...loading
-</div>:
+ isLoading ? 
+<Loader/>
+:
 
 data?.results.map((item:MovieItem)=>(
 
