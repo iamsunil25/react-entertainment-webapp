@@ -68,7 +68,7 @@ const fetchMoreData = ()=>{
 <div className='m-4' key={index}  >
 
 
-<iframe src={"https://www.youtube.com/embed/"+ videoItem.id}>
+<iframe width="380px" height="260px" src={"https://www.youtube.com/embed/"+ videoItem.id}>
 </iframe> 
 
 	</div>

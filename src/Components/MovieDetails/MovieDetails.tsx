@@ -60,15 +60,15 @@ return (
 	}
 	
 	return (
-	<div>
-		<div className="grid  grid-flow-col gap-4">
-  <div className="row-span-6">
+	
+	<div className="flex flex-row">
+  <div className="basis-1/2" >
 
-<img src={posterImageBaseUrl + data?.poster_path}  alt="movie" style={{aspectRatio:'6/5'}} />
+<img src={posterImageBaseUrl + data?.poster_path}  alt="movie"   />
 
 
   </div>
-  <div className="row-span-6 m-1">
+  <div className="basis-1/2 ml-2">
 <span className='text-teal-600 font-bold'>Title :<span className='font-semibold text-gray-900'> {data?.original_title || data?.title || data?.name || data?.original_name  || "-"}</span></span><br/>
 <span className='text-teal-600 font-bold'>Tagline : <span className='font-semibold text-gray-900'>{data?.tagline  || "-"}</span> </span> <br/>
 <span className='text-teal-600 font-bold'>Run time : <span className='font-semibold text-gray-900'>{secondsToHms(data?.runtime)|| "-"}</span></span><br/>
@@ -86,10 +86,11 @@ return (
  <span className='text-teal-600 font-bold'>Production Country : <span className='font-semibold text-gray-900'> {data?.production_countries[0]?.name  || "-"} </span></span> <br/>
  <span className='text-teal-600 font-bold'>Revenue : <span className='font-semibold text-gray-900'> {data?.revenue  || "-"} </span></span> <br/>
   </div>
+
+  
 </div>
 
 
-	</div>
   )
 }
 

@@ -59,15 +59,13 @@ const TvSeriesDetails = () => {
 		}
 		
 		return (
-			<div>
-			<div className="grid  grid-flow-col gap-4">
-	  <div className="row-span-6">
-	
-	<img src={posterImageBaseUrl + data?.poster_path}  alt="movie" style={{aspectRatio:'6/5'}} />
-	
-	
-	  </div>
-	  <div className="row-span-6 m-1">
+
+			<div className="flex flex-row">
+	  <div className="basis-1/2">
+	<img src={posterImageBaseUrl + data?.poster_path}  alt="movie" />
+	</div>
+
+	  <div className="basis-1/2 ml-2">
 	<span className='text-teal-600 font-bold'>Title :<span className='font-semibold text-gray-900'> {data?.original_title || data?.title || data?.name || data?.original_name  || "-"}</span></span><br/>
 	<span className='text-teal-600 font-bold'>Tagline : <span className='font-semibold text-gray-900'>{data?.tagline  || "-"}</span> </span> <br/>
 	<span className='text-teal-600 font-bold'>Total Seasons : <span className='font-semibold text-gray-900'>{data?.number_of_seasons|| "-"}</span></span><br/>
@@ -75,50 +73,24 @@ const TvSeriesDetails = () => {
 	<span className='text-teal-600 font-bold'>Adult : <span className='font-semibold text-gray-900'>{data?.adult ? 'Yes':'No'} </span></span> <br/>
 	<span className='text-teal-600 font-bold'>Original Language : <span className='font-semibold text-gray-900'>{data?.original_language?.toUpperCase()  || "-"}</span> </span> <br/>
 	<span className='text-teal-600 font-bold'>Release Date : <span className='font-semibold text-gray-900'>{moment(data?.release_date).format('DD-MM-YYYY')  || "-"}</span> </span> <br/>
-	<span className='text-teal-600 font-bold'>Genres : <span className='font-semibold text-gray-900'>	{data?.genres.map((item:any,index:number)=><span key={item?.id}>{item?.name}{index!==data.genres.length-1 ? ", ":null}</span>)}</span>
-	 </span> <br/>
+
+	<span className='text-teal-600 font-bold'>
+		Genres : <span className='font-semibold text-gray-900'>
+				{data?.genres.map((item:any,index:number)=><span key={item?.id}>
+					{item?.name}{index!==data.genres.length-1 ? ", ":null}</span>
+					)}
+					</span></span> <br/>
 	 <span className='text-teal-600 font-bold'>Movie budget : <span className='font-semibold text-gray-900'> {data?.budget  || "-"}</span> </span> <br/>
 	 {data?.homepage && 
 	 <>
 	 <span className='text-teal-600 font-bold'>Home Page :<span className='font-semibold text-gray-900'> <a href={data?.homepage } target="_blank">{data?.original_title || data?.title || data?.name || data?.original_name}</a></span> </span> <br/>
 	 </>}
 	 <span className='text-teal-600 font-bold'>Overview : <span className='font-semibold text-gray-900'>{data?.overview  || "-"}</span> </span> <br/>
-	 <span className='text-teal-600 font-bold'>Production Country : <span className='font-semibold text-gray-900'> {data?.production_countries[0]?.name  || "-"} </span></span> <br/>
-	 {/* <span className='text-teal-600 font-bold'>Revenue : <span className='font-semibold text-gray-900'> {data?.revenue  || "-"} </span></span> <br/> */}
-	  </div>
-	</div>
+	 <span className='text-teal-600 font-bold'>Production Country : <span className='font-semibold text-gray-900'> {data?.production_countries[0]?.name  || "-"} </span></span> <br/>	  </div>
 	</div>
 
-	// 	<div>
-	// 		<div className="grid  grid-flow-col gap-4">
-	//   <div className="row-span-6">
+
 	
-	// <img src={posterImageBaseUrl + data?.poster_path}  alt="movie" style={{aspectRatio:'6/5'}} />
-	
-	
-	//   </div>
-	//   <div className="row-span-6 m-1">
-	// <span>Title : {data?.original_title || data?.title || data?.name || data?.original_name  || "-"}</span><br/>
-	// <span>Tagline : {data?.tagline  || "-"} </span> <br/>
-	// <span>Run time : {secondsToHms(data?.runtime)|| "-"}</span><br/>
-	// <span>Adult : {data?.adult ? 'Yes':'No'} </span> <br/>
-	// <span>Original Language : {data?.original_language?.toUpperCase()  || "-"} </span> <br/>
-	// <span>Release Date : {moment(data?.release_date).format('DD-MM-YYYY')  || "-"} </span> <br/>
-	// <span>Genres :	{data?.genres.map((item:any,index:number)=><span key={item?.id}>{item?.name}{index!==data.genres.length-1 ? ", ":null}</span>)}
-	//  </span> <br/>
-	//  <span>Movie budget : {data?.budget  || "-"} </span> <br/>
-	//  {data?.homepage && 
-	//  <>
-	//  <span>Home Page : <a href={data?.homepage } target="_blank">{data?.original_title || data?.title || data?.name || data?.original_name}</a> </span> <br/>
-	//  </>}
-	//  <span>Overview : {data?.overview  || "-"} </span> <br/>
-	//  <span>Production Country : {data?.production_countries[0]?.name  || "-"} </span> <br/>
-	//  <span>Revenue : {data?.revenue  || "-"} </span> <br/>
-	//   </div>
-	// </div>
-	
-	
-	// 	</div>
 	  )
 	}
 
