@@ -61,11 +61,11 @@ const TvSeriesDetails = () => {
 		return (
 
 			<div className="flex flex-row">
-	  <div className="basis-1/2">
-	<img src={posterImageBaseUrl + data?.poster_path}  alt="movie" />
+	  <div className="basis-1/2 ml-5">
+	<img className='detailsImg' src={posterImageBaseUrl + data?.poster_path}  alt={data?.original_title || data?.title || data?.name || data?.original_name  || "movie"} />
 	</div>
 
-	  <div className="basis-1/2 ml-2">
+	  <div className="basis-1/2 mr-2">
 	<span className='text-teal-600 font-bold'>Title :<span className='font-semibold text-gray-900'> {data?.original_title || data?.title || data?.name || data?.original_name  || "-"}</span></span><br/>
 	<span className='text-teal-600 font-bold'>Tagline : <span className='font-semibold text-gray-900'>{data?.tagline  || "-"}</span> </span> <br/>
 	<span className='text-teal-600 font-bold'>Total Seasons : <span className='font-semibold text-gray-900'>{data?.number_of_seasons|| "-"}</span></span><br/>
@@ -80,7 +80,7 @@ const TvSeriesDetails = () => {
 					{item?.name}{index!==data.genres.length-1 ? ", ":null}</span>
 					)}
 					</span></span> <br/>
-	 <span className='text-teal-600 font-bold'>Movie budget : <span className='font-semibold text-gray-900'> {data?.budget  || "-"}</span> </span> <br/>
+					<span className='text-teal-600 font-bold'>Movie budget : <span className='font-semibold text-gray-900'> {data?.budget  ? "$" + data.budget: "-"}</span> </span> <br/>
 	 {data?.homepage && 
 	 <>
 	 <span className='text-teal-600 font-bold'>Home Page :<span className='font-semibold text-gray-900'> <a href={data?.homepage } target="_blank">{data?.original_title || data?.title || data?.name || data?.original_name}</a></span> </span> <br/>

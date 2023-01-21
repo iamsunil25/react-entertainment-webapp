@@ -2,50 +2,42 @@ import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { getAllYoutubeVideos } from '../../ApiIntegration/TheMoviesDbAPi';
 import { YoutubeVideApiResponse } from '../../utility/ApiResponseInterface';
-import YouTube, { YouTubeProps } from 'react-youtube';
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from '../../utility/Loader';
+import ModalComponent from '../../utility/Modal';
 
-type YoutubeVideoItem ={
-	kind:string,
-	id:string,
-	etag:string,
-	snippet:{}
-  }
+
 const YTVideosList = () => {
 const [pageToken, setPageToken] = useState<string>("");
+const [showModal, setShowModal] = useState(false);
 const [oldData,setOldData] = useState<[]>([])
+const [loader, setLoader]=useState(false);
+const [title,setTitle]= useState({});
 
-const onPlayerReady: YouTubeProps['onReady'] = (event) => {
-    // access to player in all event handlers via event.target
-    event.target.pauseVideo();
-  }
-const opts: YouTubeProps['opts'] = {
-    // height: '250',
-    // width: '250',
-    playerVars: {
+const {data, isLoading, isError, error} = useQuery<YoutubeVideApiResponse, Error>({queryKey:['YoutubeVideos', pageToken], queryFn:()=>getAllYoutubeVideos(pageToken)})
 
-		host: 'http://www.youtube.com',
-		widget_referrer :window.location.href,
-		origin:window.location.href,
-		 enablejsapi:1,
-      // https://developers.google.com/youtube/player_parameters
-      autoplay: 0,
-    },
-	style:{margin:'15px'}
-  };
 
-const {data, isLoading, isError} = useQuery<YoutubeVideApiResponse, Error>({queryKey:['YoutubeVideos', pageToken], queryFn:()=>getAllYoutubeVideos(pageToken)})
 useEffect(() => {
 	if(data){
 		setOldData((prev:[])=>[...prev, ...data?.items])
 	}
-
-  return () => {
-	
-  }
+  return () => { }
 }, [data])
 
+if(isError){
+	console.log("error",error);
+	
+	return(
+		<div style={{display:'grid',placeContent:'center'}}>
+			there is error
+		</div>
+	)
+}
+const showModalFunc=(videoData:any)=>{
+	setLoader(true);
+	setShowModal(true);
+	setTitle({videoData})
+}; 
 console.log("youtube videos api response",data);
 const fetchMoreData = ()=>{
 	if(data){
@@ -53,24 +45,26 @@ const fetchMoreData = ()=>{
 	}
 	return;
 	}
-
+	console.log("showmodel",showModal);
+	
+// if(isLoading){
+// 	return <Loader/>
+// }
   return (
+	
 	<InfiniteScroll  dataLength={oldData.length}
           next={fetchMoreData}
           hasMore={true}
-          loader={<Loader/>}
-		  style={{width:'100%',height:'90vh',overflow:'hidden'}}
+          loader={isLoading && <Loader/>}
+		  style={{overflow:'hidden'}}
 		  >
+
 	<div style={{display:"flex",justifyContent:"center",flexWrap:'wrap'}}>
+<ModalComponent showModal={showModal} setShowModal={setShowModal} loader={loader} setLoader={setLoader} videoData={title} />
+{oldData.map((videoItem:any, index)=>(
+<div className='m-1 cursor-pointer' key={index} onClick={()=>showModalFunc({videoId:videoItem?.id, ...videoItem.snippet})}>
 
-
-{oldData.map((videoItem:YoutubeVideoItem, index)=>(
-<div className='m-4' key={index}  >
-
-
-<iframe width="380px" height="260px" src={"https://www.youtube.com/embed/"+ videoItem.id}>
-</iframe> 
-
+<img  src ={videoItem.snippet.thumbnails.high?.url} width="320px" height="220px" />
 	</div>
 
 ))}

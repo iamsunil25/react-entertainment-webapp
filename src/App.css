@@ -23,11 +23,26 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.readMore{
+	white-space: nowrap; 
+	width: 199px; 
+	overflow: hidden;
+	text-overflow: ellipsis; 
+}
 
 .App-link {
   color: #61dafb;
 }
+.md\:dark\:hover\:text-white:hover {
+    --tw-text-opacity: 1;
+    color:rgb(156 163 175 / var(--tw-text-opacity)) !important;
+}
 
+.iframeLoader{
+		position: absolute;
+		top: 28%;
+		left: 45%;	
+}
 .movieCard{
 	width: 170px;
 	height: 170px;
@@ -44,6 +59,14 @@
 	color: rgb(255 255 255 ) !important;
 	background-color:rgb(66 88 124)  !important;
 }    
+
+.detailsImg{
+	width:640px;
+	height:90vh;
+}
+.max-w-3xl {
+    width: 30%;
+}
 
 @keyframes App-logo-spin {
   from {

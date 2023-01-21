@@ -26,6 +26,7 @@ export const Home = () => {
 	const  {data, isError,isLoading}  = useQuery<MoviesApiResponse, Error>({ queryKey: ['trendingMoviesList',page], queryFn:()=> getAllTrendingMovies(page) });
 	console.log("data",data);
 
+
   return (
 <>
 
@@ -39,15 +40,15 @@ export const Home = () => {
 
 data?.results.map((item:MovieItem)=>(
 
-<div style={{width:'220px', height:'265px',opacity:'.9', cursor:'pointer'}} key={item.id} className="hoverMovieCard w-full m-2 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700" onClick={()=>navigate('/movies/'+ item?.id)}>
+<div style={{width:'220px', maxHeight:'290px',opacity:'.9', cursor:'pointer'}} key={item.id} className="hoverMovieCard w-full m-2 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700" onClick={()=>navigate('/movies/'+ item?.id)}>
 	
       <div style={{display:"flex",justifyContent:"center"}} >
 
-	    <img className="m-1 movieCard"  src={posterImageBaseUrl+item?.poster_path } alt={item?.original_title || item?.title || "movie"} />
+	    <img className="m-2 movieCard"  src={posterImageBaseUrl+item?.poster_path } alt={item?.original_title || item?.title || "movie"} />
 		</div>
 
-         <div className="px-5 pb-5">
-            <p className="font-semibold tracking-tight text-gray-900 dark:text-white" style={{color:'rgb(22 83 175)'}}>{item?.original_title || item?.title || item?.name || item?.original_name  || "-"}</p>
+         <div className="px-5 pb-1">
+            <p className="font-semibold tracking-tight text-gray-900 dark:text-white readMore" style={{wordBreak:'break-word',color:'rgb(22 83 175)'}}>{item?.original_title || item?.title || item?.name || item?.original_name  || "-"}</p>
             <span className="font-semibold text-gray-900 dark:text-white" style={{color:'dimgray'}}>{moment(item.release_date).format('DD-MM-YYYY')}</span>
 	</div>
 </div>

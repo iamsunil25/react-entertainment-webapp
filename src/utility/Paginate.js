@@ -5,9 +5,6 @@ import React, { useCallback } from 'react';
 
 function PaginatedItems({page,setPage}) {
 
-
-
-
 	const previousPage =  useCallback(()=>{
 		if(page!==1){
 setPage((prev)=>prev-1)

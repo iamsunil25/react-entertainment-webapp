@@ -1,4 +1,3 @@
-import React from "react"
 const BASEURL = process.env.REACT_APP_API_BASEURL;
 const APIKEY=process.env.REACT_APP_API_KEY
 const YPUTUBEVIDEOAPIKEY= process.env.REACT_APP_YOUTUBE_API_KEY
@@ -39,17 +38,11 @@ export const getTvSeriesDetailsById =async (id:any)=>{
 
 // get all youtube videos
 export const getAllYoutubeVideos= async(pageToken:string)=>{
-	console.log("apiURL", pageToken);
-let apiURL=YOUTUBEVIDEOSBASEURL + `?chart=mostPopular&key=${YPUTUBEVIDEOAPIKEY}&part=snippet&maxResults=20`
+let apiURL=YOUTUBEVIDEOSBASEURL + `?chart=mostPopular&key=${YPUTUBEVIDEOAPIKEY}&part=snippet&maxResults=20&regionCode=In`
 if(pageToken){
 	apiURL=apiURL+ `&pageToken=${pageToken}`
 }
-else{
-	
-}
 	const res= await fetch(apiURL);
 	const data = await res.json();
-	console.log("data id data",data);
-	
 	return data
 }
