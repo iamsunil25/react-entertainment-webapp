@@ -12,7 +12,7 @@ export function NavbarRoutes(pathname:any) {
 	{routesObj.map((item:any)=>{
 console.log("pathname.pathname.includes(item.to)", item, pathname);
 
-return <li key={item.to}>
+return <li key={item.to} >
           <Link to={item.to} className={`block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0  md:p-0 dark:text-gray-400  dark:hover:bg-gray-700 md:dark:hover:bg-transparent ${pathname.pathname===item.to  || pathname.pathname.includes("tvseries") && item.routeName.includes("TV") || pathname.pathname.includes("movies") &&  item.routeName.includes("Movies") ? "md:text-blue-700":""}` }>{item.routeName}</Link>
         </li>
 })

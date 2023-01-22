@@ -32,9 +32,9 @@ function App() {
 	<Routes>
 	
 	<Route path="/" element={<Home/>}/>
-	  <Route path="/movies/:movieId" element={<MovieDetails/>}/>
+	  <Route path="/movies/details" element={<MovieDetails/>}/>
 	  <Route path="/movies" element={<Home/>}/>
-	  <Route path="/tvseries/:tvSeriesId" element={<TvSeriesDetails/>}/>
+	  <Route path="/tvseries/details" element={<TvSeriesDetails/>}/>
 	  <Route path="/tvseries" element={<TVSeries/>}/>
 	  <Route path='/youtube' element={<YTVideosList/>}/>
 		{/* <Route index element={<Home />} /> */}

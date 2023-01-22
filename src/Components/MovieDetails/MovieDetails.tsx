@@ -1,12 +1,13 @@
 import moment from 'moment';
 import React from 'react'
 import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { getMovieDetailsById } from '../../ApiIntegration/TheMoviesDbAPi';
 import  {MoviesApiResponse}  from '../../utility/ApiResponseInterface';
 import NoDataFoundImg from '../../images/noDataFound.png'
 import { secondsToHms } from '../../utility/RunTimeToMinutes';
 import Loader from '../../utility/Loader';
+import BackTo from '../../utility/BackTo';
 
 type MovieItem ={
 	id:number,
@@ -32,11 +33,15 @@ type MovieItem ={
 
   
 const MovieDetails = () => {
-const {movieId} = useParams();
+
+const [searchParams, setSearchParams] = useSearchParams();
+const movieId= searchParams.get("id");
+const page= searchParams.get('page');
 const posterImageBaseUrl = "https://image.tmdb.org/t/p/w1280";
 	const  {data,isLoading,error , isError}  = useQuery<MovieItem,Error>({ queryKey: ['getMovieDetails', movieId], queryFn: ()=>getMovieDetailsById(movieId)});
   
 	console.log("data details",data);
+
 	if(isLoading){
 		return (
 			<div style={{display:"flex",justifyContent:"center",flexWrap:'wrap'}} >
@@ -60,7 +65,8 @@ return (
 	}
 	
 	return (
-	
+<>
+		<BackTo page={page} component ={"/tvseries"} />
 	<div className="flex flex-row">
   <div className="basis-1/2 ml-5"  >
 
@@ -89,6 +95,7 @@ return (
 
   
 </div>
+</>
 
 
   )

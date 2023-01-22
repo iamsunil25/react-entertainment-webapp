@@ -1,13 +1,10 @@
 import React,{useState} from 'react'
 import { useQuery } from 'react-query'
 import { getAllTrendingMovies } from '../../ApiIntegration/TheMoviesDbAPi'
-import NavbarComponent from '../Navbar/NavbarComponent';
-import PlaceholderImage from '../../images/placeholderimgae.jpg';
 import moment from 'moment';
 import Paginate from '../../utility/Paginate';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { MoviesApiResponse } from '../../utility/ApiResponseInterface';
-import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import Loader from '../../utility/Loader';
    type MovieItem ={
@@ -20,10 +17,13 @@ import Loader from '../../utility/Loader';
 	poster_path:string
   }
 export const Home = () => {
-	const [page, setpage] = useState(1)
+	const location = useLocation();
+	console.log("location",location);
+		const [page, setpage] = useState(location?.state?.page || 1);
+
 	const navigate = useNavigate()
 	const posterImageBaseUrl = "https://image.tmdb.org/t/p/w1280";
-	const  {data, isError,isLoading}  = useQuery<MoviesApiResponse, Error>({ queryKey: ['trendingMoviesList',page], queryFn:()=> getAllTrendingMovies(page) });
+	const  {data,isLoading}  = useQuery<MoviesApiResponse, Error>({ queryKey: ['trendingMoviesList',page], queryFn:()=> getAllTrendingMovies(page) });
 	console.log("data",data);
 
 
@@ -40,7 +40,10 @@ export const Home = () => {
 
 data?.results.map((item:MovieItem)=>(
 
-<div style={{width:'220px', maxHeight:'290px',opacity:'.9', cursor:'pointer'}} key={item.id} className="hoverMovieCard w-full m-2 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700" onClick={()=>navigate('/movies/'+ item?.id)}>
+<div style={{width:'220px', maxHeight:'290px',opacity:'.9', cursor:'pointer'}} key={item.id} className="hoverMovieCard w-full m-2 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700" onClick={()=>navigate(
+	{pathname:'/movies/details', 
+	search:`?page=${page}&id=${item?.id}`}
+	)}>
 	
       <div style={{display:"flex",justifyContent:"center"}} >
 

@@ -76,3 +76,12 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+	@media screen and (max-width: 900px) {
+		.max-w-3xl {
+			width: 100%;
+		}
+	}
+

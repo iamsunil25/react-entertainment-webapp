@@ -1,13 +1,14 @@
 import moment from 'moment';
 import React from 'react'
 import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getMovieDetailsById, getTvSeriesDetailsById } from '../../ApiIntegration/TheMoviesDbAPi';
 import  {MoviesApiResponse}  from '../../utility/ApiResponseInterface';
 import NoDataFoundImg from '../../images/noDataFound.png'
 import { secondsToHms } from '../../utility/RunTimeToMinutes';
 import Loader from '../../utility/Loader';
-
+import BackTo from '../../utility/BackTo';
+import { useSearchParams } from 'react-router-dom';
 type MovieItem ={
 	id:number,
 	release_date:string,
@@ -31,9 +32,11 @@ type MovieItem ={
 	production_countries:[{name:string}]
   }
 const TvSeriesDetails = () => {
-	const {tvSeriesId} = useParams();
+	const [searchParams, setSearchParams] = useSearchParams();
+	const tvSeriesId= searchParams.get("id");
+  const page= searchParams.get('page');
 	const posterImageBaseUrl = "https://image.tmdb.org/t/p/w1280";
-		const  {data,isLoading,error , isError}  = useQuery<MovieItem,Error>({ queryKey: ['getTvSeriesDetails', tvSeriesId], queryFn: ()=>getTvSeriesDetailsById(tvSeriesId)});
+		const  {data,isLoading}  = useQuery<MovieItem,Error>({ queryKey: ['getTvSeriesDetails', tvSeriesId], queryFn: ()=>getTvSeriesDetailsById(tvSeriesId)});
 	  
 		console.log("data details",data);
 		if(isLoading){
@@ -59,13 +62,14 @@ const TvSeriesDetails = () => {
 		}
 		
 		return (
-
-			<div className="flex flex-row">
+			<>
+	<BackTo page={page} component ={"/tvseries"} />
+<div className="flex flex-row">
 	  <div className="basis-1/2 ml-5">
 	<img className='detailsImg' src={posterImageBaseUrl + data?.poster_path}  alt={data?.original_title || data?.title || data?.name || data?.original_name  || "movie"} />
 	</div>
 
-	  <div className="basis-1/2 mr-2">
+	  <div className="basis-1/2  mr-2">
 	<span className='text-teal-600 font-bold'>Title :<span className='font-semibold text-gray-900'> {data?.original_title || data?.title || data?.name || data?.original_name  || "-"}</span></span><br/>
 	<span className='text-teal-600 font-bold'>Tagline : <span className='font-semibold text-gray-900'>{data?.tagline  || "-"}</span> </span> <br/>
 	<span className='text-teal-600 font-bold'>Total Seasons : <span className='font-semibold text-gray-900'>{data?.number_of_seasons|| "-"}</span></span><br/>
@@ -88,7 +92,7 @@ const TvSeriesDetails = () => {
 	 <span className='text-teal-600 font-bold'>Overview : <span className='font-semibold text-gray-900'>{data?.overview  || "-"}</span> </span> <br/>
 	 <span className='text-teal-600 font-bold'>Production Country : <span className='font-semibold text-gray-900'> {data?.production_countries[0]?.name  || "-"} </span></span> <br/>	  </div>
 	</div>
-
+	</>
 
 	
 	  )
