@@ -67,14 +67,10 @@ return (
 	return (
 <>
 		<BackTo page={page} component ={"/tvseries"} />
-	<div className="flex flex-row">
-  <div className="basis-1/2 ml-5"  >
 
 <img className='detailsImg' src={posterImageBaseUrl + data?.poster_path}  alt={data?.original_title || data?.title || data?.name || data?.original_name  || "movie"}   />
 
-
-  </div>
-  <div className="basis-1/2 mr-2">
+<div className='marginTop' >
 <span className='text-teal-600 font-bold'>Title :<span className='font-semibold text-gray-900'> {data?.original_title || data?.title || data?.name || data?.original_name  || "-"}</span></span><br/>
 <span className='text-teal-600 font-bold'>Tagline : <span className='font-semibold text-gray-900'>{data?.tagline  || "-"}</span> </span> <br/>
 <span className='text-teal-600 font-bold'>Run time : <span className='font-semibold text-gray-900'>{secondsToHms(data?.runtime)|| "-"}</span></span><br/>
@@ -91,10 +87,11 @@ return (
  <span className='text-teal-600 font-bold'>Overview : <span className='font-semibold text-gray-900'>{data?.overview  || "-"}</span> </span> <br/>
  <span className='text-teal-600 font-bold'>Production Country : <span className='font-semibold text-gray-900'> {data?.production_countries[0]?.name  || "-"} </span></span> <br/>
  <span className='text-teal-600 font-bold'>Revenue : <span className='font-semibold text-gray-900'> {data?.revenue ? "$"+ data.revenue: "-"} </span></span> <br/>
-  </div>
+ </div>
+
 
   
-</div>
+{/* </div> */}
 </>
 
 

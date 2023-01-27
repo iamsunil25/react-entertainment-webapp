@@ -6,6 +6,7 @@ import { MoviesApiResponse } from '../../utility/ApiResponseInterface';
 import moment from 'moment';
 import Paginate from '../../utility/Paginate';
 import Loader from '../../utility/Loader';
+import placeholderImage from "../../images/placeholderMovie.png";
 import {useLocation} from 'react-router-dom';
 type TvSeriesItem = {
 	id:number
@@ -42,7 +43,7 @@ data?.results.map((item:TvSeriesItem)=>(
 
       <div style={{display:"flex",justifyContent:"center"}} >
 
-	    <img className="m-1 movieCard"  src={posterImageBaseUrl+item?.poster_path } alt={item?.original_title || item?.title || "movie"} />
+	    <img className="m-1 movieCard"  src={item?.poster_path ? posterImageBaseUrl+item?.poster_path :placeholderImage } alt={item?.original_title || item?.title || item?.name || item?.original_name } />
 		</div>
 
 		<div className="px-5 pb-1">

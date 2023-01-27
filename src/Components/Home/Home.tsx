@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { MoviesApiResponse } from '../../utility/ApiResponseInterface';
 import 'react-loading-skeleton/dist/skeleton.css'
 import Loader from '../../utility/Loader';
+import placeholderImage from "../../images/placeholderMovie.png";
    type MovieItem ={
 	id:number,
 	release_date:string,
@@ -47,7 +48,7 @@ data?.results.map((item:MovieItem)=>(
 	
       <div style={{display:"flex",justifyContent:"center"}} >
 
-	    <img className="m-2 movieCard"  src={posterImageBaseUrl+item?.poster_path } alt={item?.original_title || item?.title || "movie"} />
+	    <img className="m-2 movieCard"  src={posterImageBaseUrl+item?.poster_path || placeholderImage } alt={item?.original_title || item?.title || item?.name || item?.original_name} />
 		</div>
 
          <div className="px-5 pb-1">

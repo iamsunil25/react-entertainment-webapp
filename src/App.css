@@ -62,7 +62,10 @@
 
 .detailsImg{
 	width:640px;
-	height:90vh;
+	height:79vh;
+	float: left;
+	margin-right: 1%;
+	margin-left: 5px;
 }
 .max-w-3xl {
     width: 30%;
@@ -82,6 +85,16 @@
 	@media screen and (max-width: 900px) {
 		.max-w-3xl {
 			width: 100%;
+		}
+		.detailsImg {
+			width: 100%;
+			margin-left: 0;
+			margin-right: 0;
+			height: 60vh;
+			float: none;
+		}
+		.marginTop{
+			margin-top: 15px;
 		}
 	}
 

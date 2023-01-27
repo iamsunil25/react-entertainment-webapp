@@ -5,7 +5,7 @@ const {page,component}=props;
 const navigate= useNavigate();
   return (
 
-	<div className="flex p-2 border-t border-solid border-slate-200 rounded-b">
+	<div className="flex p-1 border-t border-solid border-slate-200 rounded-b">
 	
 <button
 style={{color:'rgb(66 88 124)'}}
