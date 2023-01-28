@@ -79,7 +79,10 @@
     transform: rotate(360deg);
   }
 }
-
+.text-blue-700 {
+    --tw-text-opacity: 1;
+    color: rgb(29 78 216 / var(--tw-text-opacity)) !important;
+}
 
 
 	@media screen and (max-width: 900px) {
