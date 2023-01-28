@@ -4,7 +4,7 @@ import moment from 'moment';
  function ModalComponent({...props}) {
 
 const {showModal,setShowModal,loader,setLoader,videoData} = props;
-	console.log("videoData",props);
+	// console.log("videoData",props);
 
   return (
     <>
@@ -44,7 +44,6 @@ const {showModal,setShowModal,loader,setLoader,videoData} = props;
 				}
 				</div>
 				<iframe allowFullScreen width="300px" height="230px" onLoad={()=>{
-						console.log("hello");
 						setLoader(false);
 					}} src={"https://www.youtube.com/embed/" + videoData?.videoData?.videoId}>
 	</iframe>   

@@ -25,7 +25,7 @@ useEffect(() => {
 }, [data])
 
 if(isError){
-	console.log("error",error);
+	// console.log("error",error);
 	
 	return(
 		<div style={{display:'grid',placeContent:'center'}}>
@@ -38,14 +38,14 @@ const showModalFunc=(videoData:any)=>{
 	setShowModal(true);
 	setTitle({videoData})
 }; 
-console.log("youtube videos api response",data);
+// console.log("youtube videos api response",data);
 const fetchMoreData = ()=>{
 	if(data){
 		setPageToken(data.nextPageToken)
 	}
 	return;
 	}
-	console.log("showmodel",showModal);
+	// console.log("showmodel",showModal);
 	
 // if(isLoading){
 // 	return <Loader/>

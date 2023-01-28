@@ -27,7 +27,7 @@ export const Home = () => {
 	const  {data,isLoading}  = useQuery<MoviesApiResponse, Error>({ queryKey: ['trendingMoviesList',page], queryFn:()=> getAllTrendingMovies(page) });;
 useEffect(() => {
   window.history.replaceState({}, document.title);
-  console.log(" movies useeffect history", window.history);
+//   console.log(" movies useeffect history", window.history);
   
   return () => {}
 }, [])

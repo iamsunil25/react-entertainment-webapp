@@ -39,7 +39,7 @@ const TvSeriesDetails = () => {
 	const posterImageBaseUrl = "https://image.tmdb.org/t/p/w1280";
 		const  {data,isLoading}  = useQuery<MovieItem,Error>({ queryKey: ['getTvSeriesDetails', tvSeriesId], queryFn: ()=>getTvSeriesDetailsById(tvSeriesId)});
 	  
-		console.log("data details",data);
+		// console.log("data details",data);
 		if(isLoading){
 			return (
 				<div style={{display:"flex",justifyContent:"center",flexWrap:'wrap'}} >
