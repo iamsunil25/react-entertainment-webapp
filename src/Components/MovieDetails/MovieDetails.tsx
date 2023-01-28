@@ -66,7 +66,7 @@ return (
 	
 	return (
 <>
-		<BackTo page={page} component ={"/tvseries"} />
+		<BackTo page={page} component ={"/movies"} />
 
 <img className='detailsImg' src={posterImageBaseUrl + data?.poster_path}  alt={data?.original_title || data?.title || data?.name || data?.original_name  || "movie"}   />
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { getAlltvSeries } from '../../ApiIntegration/TheMoviesDbAPi';
@@ -18,15 +18,20 @@ type TvSeriesItem = {
 	poster_path:string
   }
 export const TVSeries = () => {
-	const location = useLocation();
-	console.log("location",location);
-	
+	const location = useLocation();	
 	const [page, setpage] = useState(location?.state?.page || 1);
 	const navigate = useNavigate();
 	const posterImageBaseUrl = "https://image.tmdb.org/t/p/w1280";
 	const  {data, isLoading}  = useQuery<MoviesApiResponse, Error>({ queryKey: ['tvSeriesList',page],queryFn:()=> getAlltvSeries(page) })
-	console.log("data tv series", data);
-  return (
+	// console.log("data tv series", data);
+
+	useEffect(() => {
+		window.history.replaceState({}, document.title);
+		console.log("tv series useeffect history", window.history);
+		
+		return () => {}
+	  }, [])
+	return (
 	<>
 
 <Paginate page={page} setPage={setpage}  />
@@ -39,7 +44,7 @@ export const TVSeries = () => {
 
 data?.results.map((item:TvSeriesItem)=>(
 
-<div style={{width:'220px', maxHeight:'290px',opacity:'.9', cursor:'pointer'}} key={item.id} className="hoverMovieCard w-full m-2 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700" onClick={()=>navigate({pathname:'/tvseries/details', search:`?page=${page}&id=${item?.id}`})}>
+<div style={{width:'220px', maxHeight:'290px',opacity:'.9', cursor:'pointer'}} key={item.id} className="hoverMovieCard w-full m-2 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700" onClick={()=>navigate({pathname:'/tvseries/details', search:`?page=${page}&id=${item?.id}`})}>
 
       <div style={{display:"flex",justifyContent:"center"}} >
 
