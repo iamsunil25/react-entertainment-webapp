@@ -46,7 +46,7 @@ useEffect(() => {
 
 data?.results.map((item:MovieItem)=>(
 
-<div style={{width:'220px', maxHeight:'290px',opacity:'.9', cursor:'pointer'}} key={item.id} className="hoverMovieCard w-full m-2 rounded-lg shadow-md dark:bg-gray-800 md:dark:bg-gray-800 dark:border-gray-700" onClick={()=>navigate(
+<div style={{width:'220px', maxHeight:'290px',opacity:'.9', cursor:'pointer'}} key={item.id} className="hoverMovieCard w-full m-2 rounded-lg shadow-md dark:bg-gray-800 dark:bg-slate-800 dark:border-gray-700" onClick={()=>navigate(
 	{pathname:'/movies/details', 
 	search:`?page=${page}&id=${item?.id}`}
 	)}>
