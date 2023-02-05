@@ -26,9 +26,7 @@ export const TVSeries = () => {
 	// console.log("data tv series", data);
 
 	useEffect(() => {
-		window.history.replaceState({}, document.title);
-		console.log("tv series useeffect history", window.history);
-		
+		window.history.replaceState({}, document.title);		
 		return () => {}
 	  }, [])
 	return (

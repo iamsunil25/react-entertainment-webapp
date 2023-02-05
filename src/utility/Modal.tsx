@@ -1,11 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Loader from "./Loader";
 import moment from 'moment';
  function ModalComponent({...props}) {
 
 const {showModal,setShowModal,loader,setLoader,videoData} = props;
-	// console.log("videoData",props);
-
   return (
     <>
       {showModal ? (
@@ -35,12 +33,12 @@ const {showModal,setShowModal,loader,setLoader,videoData} = props;
                 </div>
                 {/*body*/}
                 <div className="relative p-2" style={{display:'grid',placeContent:'center'}} >
-                  <p className="my-1 text-slate-500 text-lg leading-relaxed">
+                  {/* <p className="my-1 text-slate-500 text-lg leading-relaxed"> */}
 					<div className="iframeLoader" >
 					{
-						loader &&
+						loader ?
 				
-					<Loader/> 
+					<Loader/> :null
 				}
 				</div>
 				<iframe allowFullScreen width="300px" height="230px" onLoad={()=>{
@@ -48,7 +46,7 @@ const {showModal,setShowModal,loader,setLoader,videoData} = props;
 					}} src={"https://www.youtube.com/embed/" + videoData?.videoData?.videoId}>
 	</iframe>   
        
-                  </p>
+                  {/* </p> */}
 				  <span className='text-teal-600 font-bold'>Published Date :<span className='font-semibold text-gray-900'> {moment(videoData?.videoData?.publishedAt).format('DD-MM-YYYY')}</span></span>
 
                 </div>

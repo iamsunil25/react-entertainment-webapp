@@ -40,7 +40,7 @@
 
 .iframeLoader{
 		position: absolute;
-		top: 28%;
+		top: 25%;
 		left: 45%;	
 }
 .movieCard{
@@ -88,6 +88,10 @@
 	@media screen and (max-width: 900px) {
 		.max-w-3xl {
 			width: 100%;
+		}
+		.rounded-l-lg {
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
 		}
 		.detailsImg {
 			width: 100%;

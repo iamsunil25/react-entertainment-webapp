@@ -40,7 +40,7 @@ const page= searchParams.get('page');
 const posterImageBaseUrl = "https://image.tmdb.org/t/p/w1280";
 	const  {data,isLoading,error , isError}  = useQuery<MovieItem,Error>({ queryKey: ['getMovieDetails', movieId], queryFn: ()=>getMovieDetailsById(movieId)});
   
-	console.log("data details",data);
+	// console.log("data details",data);
 
 	if(isLoading){
 		return (

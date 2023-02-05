@@ -1,9 +1,8 @@
 import React from 'react'
 
 const NotFound = () =>
-  <div>
-    <h3>404 page not found</h3>
-    <p>We are sorry but the page you are looking for does not exist.</p>
+  <div style={{display:'flex', justifyContent:'center' }} >
+	<img src='https://bsmedia.business-standard.com/_media/bs/img/about-page/thumb/464_464/1599716993.jpg'  />
   </div>
 
 export default NotFound
