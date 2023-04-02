@@ -12,7 +12,11 @@ style={{color:'rgb(66 88 124)'}}
   className="background-transparent font-bold text-sm outline-none focus:outline-none ml-2 ease-linear transition-all duration-150"
   type="button" 
 >
-<img onClick={() => navigate(component,{state:{page:page}})} src={backToSvg} alt="back to svg" width={50} height={20} style={{display:'inline-block'}} />
+	{
+		!page ?  <img onClick={() => navigate(component)} src={backToSvg} alt="back to svg" width={50} height={20} style={{display:'inline-block'}} />
+:<img onClick={() => navigate(component,{state:{page:page}})} src={backToSvg} alt="back to svg" width={50} height={20} style={{display:'inline-block'}} />
+
+	}
 </button>
 
 </div>

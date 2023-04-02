@@ -1,5 +1,5 @@
 import moment from 'moment';
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery } from 'react-query';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { getMovieDetailsById } from '../../ApiIntegration/TheMoviesDbAPi';
@@ -8,6 +8,10 @@ import NoDataFoundImg from '../../images/noDataFound.png'
 import { secondsToHms } from '../../utility/RunTimeToMinutes';
 import Loader from '../../utility/Loader';
 import BackTo from '../../utility/BackTo';
+import Heartfill from "../../images/heart-fill.svg";
+import Heartempty from "../../images/heart-empty.svg"
+import { dislike, like } from '../../redux/favouriteMovies';
+import { useDispatch, useSelector } from 'react-redux';
 
 type MovieItem ={
 	id:number,
@@ -36,12 +40,27 @@ const MovieDetails = () => {
 
 const [searchParams, setSearchParams] = useSearchParams();
 const movieId= searchParams.get("id");
+const moviesData = useSelector((state:any)=>state?.favouriteMovies?.movies);
+// console.log("moviesData",moviesData);
+const isMovieAlreadyPresent = moviesData.find((item:any)=>item.id==movieId);
+
+// const [isLiked, setIsLiked] = useState(false);
+console.log("🚀 ~ file: MovieDetails.tsx:45 ~ MovieDetails ~ isMovieAlreadyPresent:", isMovieAlreadyPresent)
+const likeAndDislike = (item:any)=>{
+	item = {...item,isMovie:true}
+	if(!isMovieAlreadyPresent){
+		dispatch(like(item))
+	}
+	else{
+		dispatch(dislike(item))
+	}
+	// setIsLiked((prev)=>!prev);
+}
+const dispatch = useDispatch()
 const page= searchParams.get('page');
 const posterImageBaseUrl = "https://image.tmdb.org/t/p/w1280";
 	const  {data,isLoading,error , isError}  = useQuery<MovieItem,Error>({ queryKey: ['getMovieDetails', movieId], queryFn: ()=>getMovieDetailsById(movieId)});
   
-	// console.log("data details",data);
-
 	if(isLoading){
 		return (
 			<div style={{display:"flex",justifyContent:"center",flexWrap:'wrap'}} >
@@ -82,11 +101,13 @@ return (
  <span className='text-teal-600 font-bold'>Movie budget : <span className='font-semibold text-gray-900'> {data?.budget  ? "$" + data.budget: "-"}</span> </span> <br/>
  {data?.homepage && 
  <>
- <span className='text-teal-600 font-bold'>Home Page :<span className='font-semibold text-gray-900'> <a href={data?.homepage } target="_blank">{data?.original_title || data?.title || data?.name || data?.original_name}</a></span> </span> <br/>
+ <span className='text-teal-600 font-bold'>Home Page :<span className='font-semibold text-gray-900'> <a className='hyperlink' href={data?.homepage } target="_blank">{data?.original_title || data?.title || data?.name || data?.original_name}</a></span> </span> <br/>
  </>}
  <span className='text-teal-600 font-bold'>Overview : <span className='font-semibold text-gray-900'>{data?.overview  || "-"}</span> </span> <br/>
  <span className='text-teal-600 font-bold'>Production Country : <span className='font-semibold text-gray-900'> {data?.production_countries[0]?.name  || "-"} </span></span> <br/>
  <span className='text-teal-600 font-bold'>Revenue : <span className='font-semibold text-gray-900'> {data?.revenue ? "$"+ data.revenue: "-"} </span></span> <br/>
+  	<img style={{cursor:'pointer'}} width={30} height={30} src={isMovieAlreadyPresent  ? Heartempty:Heartfill} alt={!isMovieAlreadyPresent? "Heart empty icon": "Heart filled icon"} onClick={()=>likeAndDislike(data)}/>
+
  </div>
 
 

@@ -8,6 +8,7 @@ import Paginate from '../../utility/Paginate';
 import Loader from '../../utility/Loader';
 import placeholderImage from "../../images/placeholderMovie.png";
 import {useLocation} from 'react-router-dom';
+import { useSelector } from 'react-redux';
 type TvSeriesItem = {
 	id:number
 	first_air_date:string
@@ -20,7 +21,9 @@ type TvSeriesItem = {
 export const TVSeries = () => {
 	const location = useLocation();	
 	const [page, setpage] = useState(location?.state?.page || 1);
+
 	const navigate = useNavigate();
+
 	const posterImageBaseUrl = "https://image.tmdb.org/t/p/w1280";
 	const  {data, isLoading}  = useQuery<MoviesApiResponse, Error>({ queryKey: ['tvSeriesList',page],queryFn:()=> getAlltvSeries(page) })
 	// console.log("data tv series", data);

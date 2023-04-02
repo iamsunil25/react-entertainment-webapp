@@ -13,6 +13,9 @@
   }
 }
 
+.hyperlink{
+	color: rgb(29 78 216 );
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -103,5 +106,6 @@
 		.marginTop{
 			margin-top: 15px;
 		}
+
 	}
 

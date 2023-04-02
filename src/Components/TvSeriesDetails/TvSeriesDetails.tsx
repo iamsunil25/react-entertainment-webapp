@@ -1,5 +1,5 @@
 import moment from 'moment';
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getMovieDetailsById, getTvSeriesDetailsById } from '../../ApiIntegration/TheMoviesDbAPi';
@@ -10,6 +10,10 @@ import placeholderImage from "../../images/placeholderMovie.png";
 import Loader from '../../utility/Loader';
 import BackTo from '../../utility/BackTo';
 import { useSearchParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import Heartfill from "../../images/heart-fill.svg";
+import Heartempty from "../../images/heart-empty.svg"
+import { dislike, like } from '../../redux/favouriteMovies';
 type MovieItem ={
 	id:number,
 	release_date:string,
@@ -35,11 +39,26 @@ type MovieItem ={
 const TvSeriesDetails = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const tvSeriesId= searchParams.get("id");
+	const tvSeriesData = useSelector((state:any)=>state?.favouriteMovies?.tvSeries);
+	// console.log("tvSeriesData",tvSeriesData);
+	const isTvSeriesAlreadyPresent = tvSeriesData.find((item:any)=>item.id==tvSeriesId);
+	// console.log("🚀 ~ file: TvSeries.tsx:27 ~ TVSeries ~ isTvSeriesAlreadyPresent:", isTvSeriesAlreadyPresent)
+	
+	// const [isLiked, setIsLiked] = useState(false);
+const dispatch = useDispatch();
+const likeAndDislike = (item:any)=>{
+	item = {...item,isTvseries:true}
+	if(!isTvSeriesAlreadyPresent){
+		dispatch(like(item))
+	}
+	else{
+		dispatch(dislike(item))
+	}
+	// setIsLiked((prev)=>!prev);
+}
   const page= searchParams.get('page');
 	const posterImageBaseUrl = "https://image.tmdb.org/t/p/w1280";
 		const  {data,isLoading}  = useQuery<MovieItem,Error>({ queryKey: ['getTvSeriesDetails', tvSeriesId], queryFn: ()=>getTvSeriesDetailsById(tvSeriesId)});
-	  
-		// console.log("data details",data);
 		if(isLoading){
 			return (
 				<div style={{display:"flex",justifyContent:"center",flexWrap:'wrap'}} >
@@ -87,11 +106,13 @@ const TvSeriesDetails = () => {
 					<span className='text-teal-600 font-bold'>Movie budget : <span className='font-semibold text-gray-900'> {data?.budget  ? "$" + data.budget: "-"}</span> </span> <br/>
 	 {data?.homepage && 
 	 <>
-	 <span className='text-teal-600 font-bold'>Home Page :<span className='font-semibold text-gray-900'> <a href={data?.homepage } target="_blank">{data?.original_title || data?.title || data?.name || data?.original_name}</a></span> </span> <br/>
+	 <span className='text-teal-600 font-bold'>Home Page :<span className='font-semibold text-gray-900'> <a className='hyperlink' href={data?.homepage } target="_blank">{data?.original_title || data?.title || data?.name || data?.original_name}</a></span> </span> <br/>
 	 </>}
 	 <span className='text-teal-600 font-bold'>Overview : <span className='font-semibold text-gray-900'>{data?.overview  || "-"}</span> </span> <br/>
 	 <span className='text-teal-600 font-bold'>Production Country : <span className='font-semibold text-gray-900'> {data?.production_countries[0]?.name  || "-"} </span></span> <br/>
-	 	  </div>
+		<img style={{cursor:'pointer'}} width={30} height={30} src={isTvSeriesAlreadyPresent? Heartempty:Heartfill} alt={!isTvSeriesAlreadyPresent? "Heart empty icon": "Heart filled icon"} onClick={()=>likeAndDislike(data)}/>
+  
+		  </div>
 	
 	</>
 
