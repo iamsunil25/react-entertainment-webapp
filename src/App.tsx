@@ -10,7 +10,7 @@ import MovieDetails from './Components/MovieDetails/MovieDetails';
 import {TVSeries} from './Components/TvSeries/TvSeries';
 import TvSeriesDetails from './Components/TvSeriesDetails/TvSeriesDetails';
 import YTVideosList from './Components/Youtube-Videos/YTVideosList';
-import { Favourites } from './Components/Favourites';
+import Favourites  from './Components/Favourites/index';
 import FavouriteTvSeriesDetails from './Components/Favourites/FavouriteTvSeriesDetails';
 import FavouriteMoviesSeriesDetails from './Components/Favourites/FavouriteMoviesDetails';
 const queryClient = new QueryClient(
