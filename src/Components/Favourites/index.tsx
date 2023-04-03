@@ -40,7 +40,7 @@ const Index = () => {
 
 		return(
 			<div className='mt-5'>
-				<h1 style={{fontWeight:'500',fontSize:'20px' }}>Currently there is no data in your favourite list.</h1>
+				<h1 style={{fontWeight:'500',fontSize:'20px',textAlign:'center' }}>Currently there is no data in your favourite list.</h1>
 			</div>
 		) 
 	}
