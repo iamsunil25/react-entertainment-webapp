@@ -22,7 +22,7 @@ setPage((prev)=>prev-1)
 return(
 	<div className=' mb-2' style={{display:'flex',justifyContent:'center'}}>
 <nav aria-label="Page navigation example">
-  <ul className="inline-flex flex-wrap -space-x-px">
+  <ul className="rounded-l-lg rounded-r-lg bg-common-background inline-flex flex-wrap -space-x-px">
 
     <li   style={{pointerEvents:page=='1' ? 'none':'', cursor:page=='1' ? 'default':'pointer'}}  onClick={previousPage}  className="px-3 py-2 ml-0 leading-tight text-gray-500 border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 md:dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</li>
 	{

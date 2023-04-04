@@ -45,7 +45,7 @@ export const TVSeries = () => {
 
 data?.results.map((item:TvSeriesItem)=>(
 
-<div style={{width:'220px', maxHeight:'290px',opacity:'.9', cursor:'pointer'}} key={item.id} className="hoverMovieCard w-full m-2 rounded-lg shadow-md dark:bg-gray-800 md:dark:bg-gray-800 md:dark:bg-gray-800 dark:border-gray-700" onClick={()=>navigate({pathname:'/tvseries/details', search:`?page=${page}&id=${item?.id}`})}>
+<div style={{width:'220px', maxHeight:'290px',opacity:'.9', cursor:'pointer'}} key={item.id} className="hoverMovieCard bg-common-background w-full m-2 rounded-lg shadow-md dark:bg-gray-800 md:dark:bg-gray-800 md:dark:bg-gray-800 dark:border-gray-700" onClick={()=>navigate({pathname:'/tvseries/details', search:`?page=${page}&id=${item?.id}`})}>
 
       <div style={{display:"flex",justifyContent:"center"}} >
 

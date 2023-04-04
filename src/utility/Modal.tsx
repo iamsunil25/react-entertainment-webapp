@@ -14,7 +14,7 @@ const {showModal,setShowModal,loader,setLoader,videoData} = props;
           >
             <div      tabIndex={-1} className="relative w-auto my-6 mx-auto max-w-3xl">
 
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+              <div style={{background:'beige'}} className="border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none focus:outline-none">
                 <div className="flex items-start justify-between p-2 border-b border-solid border-slate-200 rounded-t">
                   <div className="font-semibold text-gray-900">
                  {videoData?.videoData?.title}

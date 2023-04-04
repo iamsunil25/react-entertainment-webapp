@@ -55,7 +55,7 @@ const Index = () => {
 		{
 		allData?.map((item:any)=>(
 		item.isMovie ?
-			<div style={{width:'220px', maxHeight:'290px',opacity:'.9', cursor:'pointer'}} key={item.id} className=" w-full m-2 rounded-lg shadow-md dark:bg-gray-800 md:dark:bg-gray-800 dark:border-gray-700" >
+			<div style={{width:'220px', maxHeight:'290px',opacity:'.9', cursor:'pointer'}} key={item.id} className=" w-full m-2 bg-common-background rounded-lg shadow-md dark:bg-gray-800 md:dark:bg-gray-800 dark:border-gray-700" >
 			<div onClick={()=>navigate(
 			'/favourites/movies-details',
 			{state:{
@@ -79,7 +79,7 @@ const Index = () => {
 </div>
 			
 		</div> :
-		<div style={{width:'220px', maxHeight:'290px',opacity:'.9', cursor:'pointer'}} key={item.id} className=" w-full m-2 rounded-lg shadow-md dark:bg-gray-800 md:dark:bg-gray-800 md:dark:bg-gray-800 dark:border-gray-700"  >
+		<div style={{width:'220px', maxHeight:'290px',opacity:'.9', cursor:'pointer'}} key={item.id} className="bg-common-background w-full m-2 rounded-lg shadow-md dark:bg-gray-800 md:dark:bg-gray-800 md:dark:bg-gray-800 dark:border-gray-700"  >
 		<div onClick={()=>navigate(
 			'/favourites/tvseries-details',
 			{state:{

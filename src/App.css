@@ -1,7 +1,13 @@
 .App {
   text-align: center;
 }
-
+.bg-common-background{
+	/* background-color: #000; */
+	/* dark gray black */	
+	background-color: rgb(31 41 55);
+	/* light gray black */
+	/* background-color:rgb(53 62 75);  */
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

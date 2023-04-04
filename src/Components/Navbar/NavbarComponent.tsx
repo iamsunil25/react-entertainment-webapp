@@ -10,9 +10,9 @@ function NavbarComponent(){
 	
 return(
 
- <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-800 md:dark:bg-gray-800" >
+ <nav className="bg-common-background border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-800 md:dark:bg-gray-800" >
   <div className="container flex flex-wrap items-center justify-between mx-auto">
-    <a href="https://iamsunil25.github.io/portfolio" className="flex items-center">
+    <a href="https://iamsunil25.github.io/portfolio" className="flex items-center" style={{color:'#6b7280'}}>
         <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">iamsunil25</span>
     </a>
     <button  aria-expanded={hidden} 
