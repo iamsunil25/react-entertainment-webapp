@@ -11,7 +11,7 @@ export function NavbarRoutes({pathname, hidden, setHidden}:{pathname:string, hid
 
 
 	
-  return <div className={`bg-common-background w-full md:block md:w-auto text-gray-500${hidden ? 'hidden':''}`} id="navbar-default">
+  return <div className={`bg-common-background w-full md:block md:w-auto text-gray-500 ${hidden ? 'hidden':''}`} id="navbar-default">
       <ul className={`flex flex-col p-4 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 dark:bg-gray-800 md:dark:bg-gray-800  dark:border-gray-700`}>
 	{
 	routesObj.map((item:any)=>{
