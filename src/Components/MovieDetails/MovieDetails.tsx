@@ -45,7 +45,7 @@ const moviesData = useSelector((state:any)=>state?.favouriteMovies?.movies);
 const isMovieAlreadyPresent = moviesData.find((item:any)=>item.id==movieId);
 
 // const [isLiked, setIsLiked] = useState(false);
-console.log("🚀 ~ file: MovieDetails.tsx:45 ~ MovieDetails ~ isMovieAlreadyPresent:", isMovieAlreadyPresent)
+// console.log("🚀 ~ file: MovieDetails.tsx:45 ~ MovieDetails ~ isMovieAlreadyPresent:", isMovieAlreadyPresent)
 const likeAndDislike = (item:any)=>{
 	item = {...item,isMovie:true}
 	if(!isMovieAlreadyPresent){
@@ -71,6 +71,7 @@ const posterImageBaseUrl = "https://image.tmdb.org/t/p/w1280";
 	if(data?.success===false){
 return (
 	<>
+	<BackTo page={page} component ={"/movies"} />
 	<div style={{display:"flex",justifyContent:"center",flexWrap:'wrap'}} >
 <img  style={{width:'30%'}} src={NoDataFoundImg} alt="no data found image" className='m-2'/>
 	

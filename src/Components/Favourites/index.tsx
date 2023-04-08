@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import moment from 'moment';
 
 import {  useNavigate } from 'react-router-dom';
@@ -10,50 +10,85 @@ import placeholderImage from "../../images/placeholderMovie.png";
 import { useSelector, useDispatch } from 'react-redux';
 import { dislike } from '../../redux/favouriteMovies';
 const Index = () => {
-
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
+	const [selectedValue, setSelectedValue] = useState("all");
+	const [mutation, setMutation] = useState({})
 	const moviesData = useSelector((state:any)=>state?.favouriteMovies?.movies)
 	// console.log("🚀 ~ file: index.tsx:37 ~ Favourites ~ moviesData:", moviesData)
 	const tvseriesData = useSelector((state:any)=>state.favouriteMovies.tvSeries) 
 	// console.log("🚀 ~ file: index.tsx:35 ~ Favourites ~ tvseriesData:", tvseriesData)
-	let allData = [...moviesData,...tvseriesData];
+	const [filteredData, setfilteredData] = useState([...moviesData,...tvseriesData])
+	// console.log("filteredData",filteredData);
+const allData = [...moviesData,...tvseriesData]
+
+useEffect(() => {
+	if(selectedValue==="all"){
+		setfilteredData([...moviesData,...tvseriesData])
+	}
+	else if(selectedValue==="movies"){
+		setfilteredData(moviesData)
+	}
+	else if(selectedValue==="tv_series"){
+		setfilteredData(tvseriesData)
+	}
+
+  return () => {}
+}, [selectedValue,mutation])
+
 	const dislikeTvSeries = (item:any)=>{
 			dispatch(dislike(item));
+			setMutation({})
 	}
 	const dislikeMovie = (item:any)=>{
 			dispatch(dislike(item));
+			setMutation({})
+	}
+
+
+	const handleSelect = (e:any)=>{
+		setSelectedValue(e.target.value)	
 	}
 		const navigate = useNavigate();
 		const posterImageBaseUrl = "https://image.tmdb.org/t/p/w1280";
-	// console.log("allData",allData);
 	
 	
 	
 		useEffect(() => {
 	  window.history.replaceState({}, document.title);
-	//   console.log(" movies useeffect history", window.history);
-	  
 	  return () => {}
 	}, [])
 	
-	if(allData.length===0){
 
+
+
+	if(allData.length===0){
 		return(
 			<div className='mt-5'>
-				<h1 style={{fontWeight:'500',fontSize:'20px',textAlign:'center' }}>Currently there is no data in your favourite list.</h1>
-			</div>
-		) 
+	 	<h1 style={{fontWeight:'500',fontSize:'20px',textAlign:'center' }}>Your favourite list is currently empty.</h1>
+				 	</div>	) 
 	}
 
+
 	return (
+<>
 
 
+<select  id="moviesAndTvSeries" onChange={handleSelect} className="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full-select p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  <option key={"all"} value="all" >All</option>
+  <option key={"movies"} value="movies">Movies</option>
+  <option key={"tv_series"} value="tv_series">Tv series</option>
+</select>
 
-		<div style={{display:"flex",justifyContent:"center",flexWrap:'wrap'}} className='mt-2' >
-		
-		
+{
+<div className='mt-2'>
+{ moviesData.length===0 && selectedValue=="movies"? 	<h1 className='text-For-No-Favourite-Data'>Your favourite list has no <span className='no-Movie-Or-TvSeries-Data'>movies</span>.</h1>:null}
+{ tvseriesData.length===0 && selectedValue=="tv_series"  ?  	<h1 className='text-For-No-Favourite-Data'>Your favourite list has no <span className='no-Movie-Or-TvSeries-Data'>tv series</span>.</h1>:null}				 
+	</div>
+}
+
+		<div style={{display:"flex",justifyContent:"center",flexWrap:'wrap'}} className='mt-5 pt-5' >
 		{
-		allData?.map((item:any)=>(
+		filteredData?.map((item:any)=>(
 		item.isMovie ?
 			<div style={{width:'220px', maxHeight:'290px',opacity:'.9', cursor:'pointer'}} key={item.id} className=" w-full m-2 bg-common-background rounded-lg shadow-md dark:bg-gray-800 md:dark:bg-gray-800 dark:border-gray-700" >
 			<div onClick={()=>navigate(
@@ -62,7 +97,7 @@ const Index = () => {
 				movieDetails:item}}
 			)}>
 			  <div style={{display:"flex",justifyContent:"center"}} >
-		
+
 				<img className="m-2 movieCard"  src={posterImageBaseUrl+item?.poster_path || placeholderImage } alt={item?.original_title || item?.title || item?.name || item?.original_name} />
 				</div>
 		
@@ -74,9 +109,8 @@ const Index = () => {
 
 		
 			</div>
-			<div>
-<img width={26} height={26}  style={{position: 'relative',bottom: '6px',  left: '182px' }} src={crossImage} alt="x icon" onClick={()=>dislikeMovie(item)} />
-</div>
+			{/* X icon */}
+			  <img width={26} height={26}  style={{position: 'relative',bottom: '6px',  left: '182px' }} src={crossImage} alt="x icon" onClick={()=>dislikeMovie(item)} />
 			
 		</div> :
 		<div style={{width:'220px', maxHeight:'290px',opacity:'.9', cursor:'pointer'}} key={item.id} className="bg-common-background w-full m-2 rounded-lg shadow-md dark:bg-gray-800 md:dark:bg-gray-800 md:dark:bg-gray-800 dark:border-gray-700"  >
@@ -87,7 +121,7 @@ const Index = () => {
 			)} >
 			  <div style={{display:"flex",justifyContent:"center"}} >
 		
-				<img className="m-1 movieCard"  src={item?.poster_path ? posterImageBaseUrl+item?.poster_path :placeholderImage } alt={item?.original_title || item?.title || item?.name || item?.original_name } />
+				<img className="m-2 movieCard"  src={item?.poster_path ? posterImageBaseUrl+item?.poster_path :placeholderImage } alt={item?.original_title || item?.title || item?.name || item?.original_name } />
 				</div>
 		
 				<div className="px-5 pb-1">
@@ -96,9 +130,9 @@ const Index = () => {
 			</div>
 
 			</div>
-			<div>
+{/* X icon */}	
 <img width={26} height={26}  style={{position: 'relative',bottom: '6px',  left: '182px' }} src={crossImage} alt="x icon" onClick={()=>dislikeTvSeries(item)} />
-</div>
+
 		</div>
 		
 		))}
@@ -108,7 +142,7 @@ const Index = () => {
 		
 		
 		</div>	
-		
+		</>
 		  )
 }
 

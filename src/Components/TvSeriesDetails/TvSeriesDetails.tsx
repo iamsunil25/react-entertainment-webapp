@@ -68,7 +68,7 @@ const likeAndDislike = (item:any)=>{
 		}
 		if(data?.success===false){
 	return (
-		<>
+		<>	<BackTo page={page} component ={"/tvseries"} />
 		<div style={{display:"flex",justifyContent:"center",flexWrap:'wrap'}} >
 	<img  style={{width:'30%'}} src={NoDataFoundImg} alt="no data found image" className='m-2'/>
 		

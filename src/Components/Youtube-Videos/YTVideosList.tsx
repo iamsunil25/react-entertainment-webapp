@@ -23,6 +23,15 @@ useEffect(() => {
 	}
   return () => { }
 }, [data])
+useEffect(() => {
+	if(showModal){
+		document.body.style.overflowY="hidden"
+	}
+	else if(!showModal) {
+		document.body.style.overflowY="auto"
+	}
+    return () => {};
+  }, [showModal]);
 
 if(isError){
 	// console.log("error",error);
