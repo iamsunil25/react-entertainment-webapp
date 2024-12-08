@@ -15,14 +15,23 @@ export const getAllTrendingMovies =async (page:number)=>{
 }
 
 
-
-
 //get movie details by id
 export const getMovieDetailsById =async (id:any)=>{
 	const res = await fetch(`${MOVIEAPIBASEURL}/?apikey=${MOVIEAPIKEY}&i=${id}`)
 	const data  = await res.json();
 	return  data;
 }
+
+// get all youtube videos
+export const getAllYoutubeVideos= async(pageToken:string)=>{
+	let apiURL=YOUTUBEVIDEOSBASEURL + `?chart=mostPopular&key=${YPUTUBEVIDEOAPIKEY}&part=snippet&maxResults=20&regionCode=In`
+	if(pageToken){
+		apiURL=apiURL+ `&pageToken=${pageToken}`
+	}
+		const res= await fetch(apiURL);
+		const data = await res.json();
+		return data
+	}
 
 
 //get all tv series 
@@ -41,13 +50,4 @@ export const getMovieDetailsById =async (id:any)=>{
 // }
 
 
-// get all youtube videos
-export const getAllYoutubeVideos= async(pageToken:string)=>{
-let apiURL=YOUTUBEVIDEOSBASEURL + `?chart=mostPopular&key=${YPUTUBEVIDEOAPIKEY}&part=snippet&maxResults=20&regionCode=In`
-if(pageToken){
-	apiURL=apiURL+ `&pageToken=${pageToken}`
-}
-	const res= await fetch(apiURL);
-	const data = await res.json();
-	return data
-}
+
