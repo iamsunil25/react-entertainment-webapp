@@ -9,14 +9,14 @@ export const favouriteMovies = createSlice({
   },
   reducers: {
 	like:(state:{movies:Array<{}>,tvSeries:Array<{}>},action)=>{
-		console.log("like action",action);
+		// console.log("like action",action);
 		if(action.payload.isMovie){
 			let uniqueMovies=[...state.movies,action.payload]
 			state.movies = uniqueMovies.filter(obj => !uniqueMovies[obj.imdbID] && (uniqueMovies[obj.imdbID] = true))
 		}
 	},
 	dislike:(state:{movies:Array<{}>,tvSeries:Array<{}>},action)=>{
-		console.log("dislike action",action);
+		// console.log("dislike action",action);
 		if(action.payload.isMovie){
 			state.movies = state.movies.filter((item:any)=>item.imdbID!==action.payload?.imdbID)
 		}
