@@ -9,23 +9,16 @@ export const favouriteMovies = createSlice({
   },
   reducers: {
 	like:(state:{movies:Array<{}>,tvSeries:Array<{}>},action)=>{
-		// console.log("like action",action);
+		console.log("like action",action);
 		if(action.payload.isMovie){
 			let uniqueMovies=[...state.movies,action.payload]
-			state.movies = uniqueMovies.filter(obj => !uniqueMovies[obj.id] && (uniqueMovies[obj.id] = true))
-		}else if(action.payload.isTvseries){
-			let uniqueTvSeries=[...state.tvSeries,action.payload]
-			state.tvSeries = uniqueTvSeries.filter(obj => !uniqueTvSeries[obj.id] && (uniqueTvSeries[obj.id] = true))
+			state.movies = uniqueMovies.filter(obj => !uniqueMovies[obj.imdbID] && (uniqueMovies[obj.imdbID] = true))
 		}
-		// console.log("state",state);
-		
 	},
 	dislike:(state:{movies:Array<{}>,tvSeries:Array<{}>},action)=>{
-		// console.log("dislike action",action);
+		console.log("dislike action",action);
 		if(action.payload.isMovie){
-			state.movies = state.movies.filter((item:any)=>item.id!==action.payload?.id)
-		}else if(action.payload.isTvseries){
-			state.tvSeries = state.tvSeries.filter((item:any)=>item.id!==action.payload?.id)
+			state.movies = state.movies.filter((item:any)=>item.imdbID!==action.payload?.imdbID)
 		}
 	},
   },

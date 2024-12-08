@@ -9,3 +9,9 @@ export function secondsToHms(d:any) {
 	var sDisplay = s > 9 ? s  : "0"+s;
 	return  hDisplay+": "+ mDisplay +": "+ "00"; 
   }
+
+  export function convertMinutesToHoursAndMinutes(totalMinutes:any) {
+    const hours= Math.floor(totalMinutes / 60); // Get the number of hours
+    const minutes = totalMinutes % 60;         // Get the remaining minutes
+    return `${hours} hours and ${minutes} minutes`;
+}

@@ -7,25 +7,23 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { MoviesApiResponse } from '../../utility/ApiResponseInterface';
 import 'react-loading-skeleton/dist/skeleton.css'
 import Loader from '../../utility/Loader';
-import placeholderImage from "../../images/placeholderMovie.png";
+import placeholderImage from "../../images/movie_placeholder.png";
 
    type MovieItem ={
-	id:number,
-	release_date:string,
-	original_title:string
-	original_name:string
-	name:string
-	title:string
-	poster_path:string
+	imdbID:string,
+	Year:string,
+	Title:string
+	Poster:string
   }
 export const Home = () => {
 	const location = useLocation();
 	const [page, setpage] = useState(location?.state?.page || 1);
 
 	const navigate = useNavigate();
-	const posterImageBaseUrl = "https://image.tmdb.org/t/p/w1280";
 	const  {data,isLoading}  = useQuery<MoviesApiResponse, Error>({ queryKey: ['trendingMoviesList',page], queryFn:()=> getAllTrendingMovies(page) });;
-useEffect(() => {
+
+
+	useEffect(() => {
   window.history.replaceState({}, document.title);
 //   console.log(" movies useeffect history", window.history);
   
@@ -44,21 +42,23 @@ useEffect(() => {
 <Loader/>
 :
 
-data?.results.map((item:MovieItem)=>(
+data?.Search.map((item:MovieItem)=>(
 
-<div style={{width:'220px', maxHeight:'290px',opacity:'.9', cursor:'pointer'}} key={item.id} className="hoverMovieCard bg-common-background w-full m-2 rounded-lg shadow-md dark:bg-gray-800 md:dark:bg-gray-800 dark:border-gray-700" >
-	<div onClick={()=>navigate(
+<div style={{width:'220px', maxHeight:'290px',opacity:'.9', cursor:'pointer'}} key={item.imdbID} className="hoverMovieCard bg-common-background w-full m-2 rounded-lg shadow-md dark:bg-gray-800 md:dark:bg-gray-800 dark:border-gray-700" >
+	<div onClick={
+		()=>navigate(
 	{pathname:'/movies/details', 
-	search:`?page=${page}&id=${item?.id}`}
-	)}>
+	search:`?page=${page}&id=${item?.imdbID}`}
+	)
+	}>
       <div style={{display:"flex",justifyContent:"center"}} >
 
-	    <img className="m-2 movieCard"  src={posterImageBaseUrl+item?.poster_path || placeholderImage } alt={item?.original_title || item?.title || item?.name || item?.original_name} />
+	    <img className="m-2 movieCard"  src={item?.Poster!=="N/A" ? item?.Poster:placeholderImage  } alt={item?.Title ?? "N/A"} />
 		</div>
 
          <div className="px-5 pb-1">
-            <p className="font-semibold tracking-tight text-gray-900  readMore" style={{wordBreak:'break-word',color:'rgb(22 83 175)'}}>{item?.original_title || item?.title || item?.name || item?.original_name  || "-"}</p>
-            <span className="font-semibold text-gray-900 " style={{color:'dimgray'}}>{moment(item.release_date).format('DD-MM-YYYY')}</span>
+            <p className="font-semibold tracking-tight text-gray-900  readMore" style={{wordBreak:'break-word',color:'rgb(22 83 175)'}}>{item?.Title ?? "N/A"}</p>
+            <span className="font-semibold text-gray-900 " style={{color:'dimgray'}}>{item.Year}</span>
 	</div>
 
 	</div>
